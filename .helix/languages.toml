@@ -1,0 +1,6 @@
+[language-server.metals]
+command = "metals"
+
+[[language]]
+name = "scala"
+language-servers = ["metals"]

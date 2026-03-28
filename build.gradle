@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'eclipse'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.scala-lang:scala3-library_3:3.3.3'
+}
+
+def ghidraInstallDir
+if (System.env.GHIDRA_INSTALL_DIR) {
+    ghidraInstallDir = System.env.GHIDRA_INSTALL_DIR
+}
+else if (project.hasProperty("GHIDRA_INSTALL_DIR")) {
+    ghidraInstallDir = project.getProperty("GHIDRA_INSTALL_DIR")
+}
+
+if (ghidraInstallDir) {
+    apply from: new File(ghidraInstallDir).getCanonicalPath() + "/support/buildExtension.gradle"
+}
+else {
+    throw new GradleException("GHIDRA_INSTALL_DIR is not defined!")
+}
